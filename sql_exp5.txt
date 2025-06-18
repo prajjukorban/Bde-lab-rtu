@@ -1,0 +1,60 @@
+CREATE DATABASE <add your name>;
+USE <database name>;
+
+
+
+CREATE TABLE DimProduct (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(10,2)
+);
+
+CREATE TABLE DimStore (
+    StoreID INT PRIMARY KEY,
+    StoreName VARCHAR(100),
+    Location VARCHAR(100)
+);
+
+CREATE TABLE DimTime (
+    TimeID INT PRIMARY KEY,
+    Date DATE,
+    Month VARCHAR(20),
+    Quarter VARCHAR(10),
+    Year INT
+);
+
+
+
+CREATE TABLE FactSales (
+    SaleID INT PRIMARY KEY,
+    ProductID INT,
+    StoreID INT,
+    TimeID INT,
+    QuantitySold INT,
+    TotalAmount DECIMAL(10,2),
+    
+  
+    FOREIGN KEY (ProductID) REFERENCES DimProduct(ProductID),
+    FOREIGN KEY (StoreID) REFERENCES DimStore(StoreID),
+    FOREIGN KEY (TimeID) REFERENCES DimTime(TimeID)
+);
+
+
+
+INSERT INTO DimProduct VALUES (1, 'Soap', 'Personal Care', 25.00);
+INSERT INTO DimProduct VALUES (2, 'Shampoo', 'Personal Care', 80.00);
+
+
+INSERT INTO DimStore VALUES (1, 'Big Bazaar', 'Hyderabad');
+INSERT INTO DimStore VALUES (2, 'Reliance Fresh', 'Mumbai');
+
+
+INSERT INTO DimTime VALUES (1, '2025-06-18', 'June', 'Q2', 2025);
+INSERT INTO DimTime VALUES (2, '2025-06-17', 'June', 'Q2', 2025);
+
+
+INSERT INTO FactSales VALUES (101, 1, 1, 1, 2, 50.00);
+INSERT INTO FactSales VALUES (102, 2, 2, 2, 1, 80.00);
+
+
